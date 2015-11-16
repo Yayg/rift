@@ -1,6 +1,10 @@
 from os import getcwd
 from sets import Set
 from ctypes import *
+from cStringIO import StringIO
+from termcolor import cprint
+import colorama
+import sys
 import __builtin__
 
 global here
@@ -8,23 +12,80 @@ global funny_joke
 global test_functions
 
 here = getcwd()
-funny_joke = """Combien faut-il d'informaticiens pour changer une ampoule ?
-Aucun. C'est un probleme hardware."""
 test_functions = Set([])
 
-def add_lib(lib_name):
+# Constant format output strings
+success_string  = '[OK] {}'
+fail_string     = '[KO] {}'
+success_color   = 'green'
+fail_color      = 'red'
+print_args      = []
+print_success = lambda *args: cprint(success_string.format(*args),
+                                     success_color)
+print_fail    = lambda *args: cprint(fail_string.format(*args),
+                                     fail_color)
+
+# Init ripe with lib name
+def init(lib_name):
+    """lib_name -- name of the .so to load
+    """
+    colorama.init()
     __builtin__.lib = cdll.LoadLibrary(here + "/" +  lib_name)
 
-def joke():
-    print(funny_joke)
-
-def call(func, return_type):
-    func.restype = return_type
-    return func()
-
+# Decorator for functions attempting to be tested
 def Test(func):
+    """Decorator registering test functions.
+    Test function have to return a boolean and can modify the output by
+    changing ripe.header, ripe.footer, ripe.fail_msg, ripe.success_msg values.
+    """
     test_functions.add(func)
 
-def all_tests():
+# Stdout catching
+class _Capturing(list):
+    """Capturing capture printed content and add it in itself.
+    Use guide:
+    with Capturing() as stdout, stderr:
+        do_something(my_object)
+    """
+    def __enter__(self):
+        self._stdout = sys.stdout
+        self._stderr = sys.stderr
+        sys.stdout = self._stdoutio = StringIO()
+        sys.stderr = self._stderrio = StringIO()
+        return self
+    def __exit__(self, *args):
+        self.extend((self._stdoutio.getvalue().splitlines(),
+                      self._stderrio.getvalue().splitlines()))
+        sys.stdout = self._stdout
+        sys.stderr = self._stderr
+
+# Call method that capture return value, stdout and stderr
+def call(func, ret_type, *args):
+    """call(func, ret_type, *args) -> (ret_value, stdout, stderr)
+    Call a fucntion and return it value cast with ret_type and also stdout
+    and stderr.
+    func     -- function ptr accessible through `lib` global variable.
+    ret_type -- return type of the c function (ctypes type)
+    """
+    ret = None
+    stdout = None
+    stderr = None
+    func.restype = ret_type
+    with _Capturing() as streams:
+        ret = func(*args)
+    return (ret, streams[0], streams[1])
+
+# TODO:
+# def run(index): 
+#    """Run tests with specific argument passed to the Test decorator"""
+
+def run_tests():
+    """Run all tests."""
+    # TODO: save umber of tests done and restart to given one if handle_fail
+    # is true
     for test in test_functions:
-        test()
+        print_args = [test.__name__]
+        if test():
+            print_success(*print_args)
+        else:
+            print_fail(*print_args)
