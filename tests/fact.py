@@ -1,6 +1,4 @@
 #! /usr/bin/env python3
-import sys
-sys.settrace
 from ripe import *
 
 def fact(n):
