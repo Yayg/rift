@@ -8,7 +8,6 @@ import sys
 import __builtin__
 
 global here
-global funny_joke
 global test_functions
 
 here = getcwd()
@@ -26,7 +25,7 @@ print_fail    = lambda *args: cprint(fail_string.format(*args),
                                      fail_color)
 
 # Init ripe with lib name
-def init(lib_name):
+def init(lib_name, handle_fail=False):
     """lib_name -- name of the .so to load
     """
     colorama.init()
@@ -36,7 +35,7 @@ def init(lib_name):
 def Test(func):
     """Decorator registering test functions.
     Test function have to return a boolean and can modify the output by
-    changing ripe.header, ripe.footer, ripe.fail_msg, ripe.success_msg values.
+    changing ripe.success_string, ripe.fail_string, ripe.print_args values.
     """
     test_functions.add(func)
 
@@ -76,7 +75,7 @@ def call(func, ret_type, *args):
     return (ret, streams[0], streams[1])
 
 # TODO:
-# def run(index): 
+# def run(index):
 #    """Run tests with specific argument passed to the Test decorator"""
 
 def run_tests():
