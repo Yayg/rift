@@ -1,21 +1,22 @@
-from os import getcwd
 from sets import Set
 from ctypes import *
 from cStringIO import StringIO
 from termcolor import cprint
 import colorama
 import sys
+import os
 import __builtin__
 
 global here
 global test_functions
 
-here = getcwd()
+here = os.getcwd()
 test_functions = Set([])
 
 # Constant format output strings
 success_string  = '[OK] {}'
 fail_string     = '[KO] {}'
+problem_string  = '[KO] {}: Process exited with error code {}'
 success_color   = 'green'
 fail_color      = 'red'
 print_args      = []
@@ -23,9 +24,11 @@ print_success = lambda *args: cprint(success_string.format(*args),
                                      success_color)
 print_fail    = lambda *args: cprint(fail_string.format(*args),
                                      fail_color)
+print_problem = lambda *args: cprint(problem_string.format(*args),
+                                     fail_color)
 
 # Init ripe with lib name
-def init(lib_name, handle_fail=False):
+def init(lib_name):
     """lib_name -- name of the .so to load
     """
     colorama.init()
@@ -78,13 +81,24 @@ def call(func, ret_type, *args):
 # def run(index):
 #    """Run tests with specific argument passed to the Test decorator"""
 
-def run_tests():
+def run_tests(handle_fail=False):
     """Run all tests."""
-    # TODO: save umber of tests done and restart to given one if handle_fail
-    # is true
     for test in test_functions:
         print_args = [test.__name__]
-        if test():
-            print_success(*print_args)
+        if handle_fail:
+            child_pid = os.fork()
+            if child_pid == 0:
+                if test():
+                    print_success(*print_args)
+                else:
+                    print_fail(*print_args)
+            else:
+                _, ret_code = os.waitpid(child_pid, 0)
+                if ret_code != 0:
+                    print_args.append(ret_code)
+                    print_problem(*print_args)
         else:
-            print_fail(*print_args)
+          if test():
+              print_success(*print_args)
+          else:
+              print_fail(*print_args)
