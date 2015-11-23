@@ -2,6 +2,16 @@
 
 from setuptools import setup, find_packages
 
+class TestCommand():
+    def initialize_options(self):
+        pass
+
+    def finalize_options(self):
+        pass
+
+    def run(self):
+        print("BIT")
+
 setup(
     name='ripe',
     version='0.1',
@@ -16,7 +26,11 @@ setup(
     packages=['ripe'],
     install_requires=[
         'ctypes',
+        'termcolor',
+        'colorama'
     ],
+
+    test_suite="tests",
 
     zip_safe=False
 )
