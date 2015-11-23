@@ -17,4 +17,4 @@ tests: $(TEST_SCRIPTS)
 
 %.test: %.py
 	$(info Launching $^)
-	@$(PYTHON) $^ 1> /dev/null || echo $^ failed with return code $$?;
+	@$(PYTHON) $^ 1> /dev/null || (echo $^ failed with return code $$? && exit 1);
