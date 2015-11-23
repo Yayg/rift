@@ -25,7 +25,6 @@ setup(
 
     packages=['ripe'],
     install_requires=[
-        'ctypes',
         'termcolor',
         'colorama'
     ],
