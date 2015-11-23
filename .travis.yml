@@ -2,7 +2,7 @@ language: python
 python:
     - "2.6"
 install: 
-    - sudo pip2 install .
+    - pip install .
 
 script:
     - make -C tests/Unit_Tests
