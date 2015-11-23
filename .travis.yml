@@ -1,4 +1,9 @@
 language: python
+
+os:
+  - linux
+  - osx
+
 python:
     # Python 2
     # - "2.6" (TODO: Fix 2.6 compilation)
@@ -8,6 +13,7 @@ python:
     - "3.3"
     - "3.4"
     - "3.5"
+
 install: 
     - pip install .
 
