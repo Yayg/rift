@@ -1,12 +1,13 @@
 from sets import Set
-from ctypes import *
-from cStringIO import StringIO
-from termcolor import cprint
-import colorama
 import sys
 import os
 import __builtin__
 
+from ctypes import *
+from cStringIO import StringIO
+from termcolor import cprint
+
+import colorama
 global here
 global test_functions
 
