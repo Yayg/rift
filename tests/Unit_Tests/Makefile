@@ -2,12 +2,7 @@ SRCS= $(wildcard *.py)
 LIBS= $(SRCS:.py=.so)
 TEST_SCRIPTS= $(SRCS:.py=.test)
 
-ifndef TRAVIS_PYTHON_VERSION
-    PYTHON = python2.7
-else
-    PYTHON = python$(TRAVIS_PYTHON_VERSION)
-endif
-
+PYTHON = /usr/bin/env python
 
 CC=gcc
 CFLAGS=
