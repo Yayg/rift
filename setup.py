@@ -1,16 +1,6 @@
-#! /usr/bin/env python2
+#! /usr/bin/env python
 
 from setuptools import setup, find_packages
-
-class TestCommand():
-    def initialize_options(self):
-        pass
-
-    def finalize_options(self):
-        pass
-
-    def run(self):
-        print("BIT")
 
 setup(
     name='ripe',
