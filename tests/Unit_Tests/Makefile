@@ -2,7 +2,7 @@ SRCS= $(wildcard *.py)
 LIBS= $(SRCS:.py=.so)
 TEST_SCRIPTS= $(SRCS:.py=.test)
 
-PYTHON = /usr/bin/env python
+PYTHON = python
 
 CC=gcc
 CFLAGS=

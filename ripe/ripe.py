@@ -1,4 +1,3 @@
-from sets import Set
 import sys
 import os
 import __builtin__
@@ -12,7 +11,7 @@ global here
 global test_functions
 
 here = os.getcwd()
-test_functions = Set([])
+test_functions = set([])
 
 # Constant format output strings
 success_string  = '[OK] {}'

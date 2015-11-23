@@ -1,10 +1,5 @@
-#! /usr/bin/env python2
+import ripe
 
-from ripe import Test, init, run_tests
-
-@Test
+@ripe.Test
 def test_decorator():
     print("Passed")
-
-init("init.so")
-run_tests()
