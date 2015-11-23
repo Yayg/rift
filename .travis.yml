@@ -3,7 +3,7 @@ python:
     - "2.6"
     - "2.7"
 install: 
-    - pip2 install .
+    - sudo pip2 install .
 
 script:
     - make -C tests/Unit_Tests
