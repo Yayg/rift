@@ -24,6 +24,7 @@ script:
     - make -C tests/Unit_Tests tests
     - make -C tests/Acceptance_Tests
     - make -C tests/Acceptance_Tests tests
+    - cd tests; ./coverage.sh
 
 after_success:
   - codecov
