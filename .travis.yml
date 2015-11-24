@@ -24,6 +24,7 @@ script:
     - make -C tests/Unit_Tests tests
     - make -C tests/Acceptance_Tests
     - make -C tests/Acceptance_Tests tests
+    - coverage run tests/Acceptance_Tests/fact.py
 
 after_success:
   - codecov
