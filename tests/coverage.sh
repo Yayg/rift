@@ -1,9 +1,9 @@
 #! /bin/sh
 
-for file in `ls Unit_Tests/*.py`; do
-    coverage run $file;
-done
-
-for file in `ls Acceptance_Tests/*.py`; do
-    coverage run $file;
+for dir in `ls -d */`; do
+    cd $dir;
+    for file in `ls *.py`; do
+        coverage run $file;
+    done;
+    cd ..;
 done
