@@ -77,10 +77,6 @@ def call(func, ret_type, *args):
         ret = func(*args)
     return (ret, streams[0], streams[1])
 
-# TODO:
-# def run(index):
-#    """Run tests with specific argument passed to the Test decorator"""
-
 def run_tests(handle_fail=False):
     """Run all tests."""
     for test in test_functions:

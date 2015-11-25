@@ -21,6 +21,6 @@ setup(
 
     test_suite="tests",
     use_2to3 = True,
-    
+
     zip_safe=False
 )

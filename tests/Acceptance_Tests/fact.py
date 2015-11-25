@@ -1,5 +1,4 @@
-#! /usr/bin/env python3
-from ripe import *
+import ripe
 
 def fact(n):
     if n < 0:
@@ -8,7 +7,7 @@ def fact(n):
         return 1
     return n * fact(n-1)
 
-@Test
+@ripe.Test
 def test_fact():
     test_values = [0, 1, 7, 13, 20]
     for i in test_values:

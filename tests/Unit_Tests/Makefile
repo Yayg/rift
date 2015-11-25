@@ -18,7 +18,7 @@ tests: $(TEST_SCRIPTS)
 
 %.test: %.py
 	$(info Launching $^ with $(PYTHON))
-	@$(PYTHON) $^ 1> /dev/null || (echo $^ failed with return code $$? && exit 1);
+	@$(PYTHON) $^ || (echo $^ failed with return code $$? && exit 1);
 
 clean:
 	rm -rf $(LIBS)
