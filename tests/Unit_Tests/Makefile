@@ -1,6 +1,7 @@
-SRCS= $(wildcard *.py)
-LIBS= $(SRCS:.py=.so)
-TEST_SCRIPTS= $(SRCS:.py=.test)
+SRCS= $(wildcard *.c)
+LIBS= $(SRCS:.c=.so)
+PYSRCS= $(wildcard *.py)
+TEST_SCRIPTS= $(PYSRCS:.py=.test)
 
 PYTHON = python
 
@@ -18,3 +19,6 @@ tests: $(TEST_SCRIPTS)
 %.test: %.py
 	$(info Launching $^ with $(PYTHON))
 	@$(PYTHON) $^ 1> /dev/null || (echo $^ failed with return code $$? && exit 1);
+
+clean:
+	rm -rf $(LIBS)
