@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 setup(
     name='rift',
     version='0.1',
-    description='rift is partially eponym',
+    description='rift is for testing',
     url='incoming',
 
     author='Rafael \'yayg\' Gozlan',
