@@ -3,9 +3,9 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='ripe',
+    name='rift',
     version='0.1',
-    description='ripe is partially eponym',
+    description='rift is partially eponym',
     url='incoming',
 
     author='Rafael \'yayg\' Gozlan',
@@ -13,7 +13,7 @@ setup(
 
     license = "MIT",
 
-    packages=['ripe'],
+    packages=['rift'],
     install_requires=[
         'termcolor',
         'colorama'

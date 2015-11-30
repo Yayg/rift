@@ -1,5 +1,5 @@
 #! /usr/bin/env python3
-from ripe import *
+from rift import *
 
 def fact(n):
     if n < 0:
@@ -12,7 +12,7 @@ def fact(n):
 def test_fact_correct():
     test_values = [0, 1, 7, 13, 20]
     for i in test_values:
-        ret, stdout, stderr = ripe.call(lib.fact, ripe.c_longlong, i)
+        ret, stdout, stderr = rift.call(lib.fact, rift.c_longlong, i)
         if ret != fact(i):
             print("fact({}) = {} != {}".format(i, ret, fact(i)))
             return False
@@ -22,11 +22,11 @@ def test_fact_correct():
 def test_fact_fail():
     test_values = [0, -1, -7, -13, -20]
     for i in test_values:
-        ret, stdout, stderr = ripe.call(lib.fact, ripe.c_longlong, i)
+        ret, stdout, stderr = rift.call(lib.fact, rift.c_longlong, i)
         if ret != fact(i):
             print("fact({}) = {} != {}".format(i, ret, fact(i)))
             return False
     return True
 
-ripe.init("fact.so")
-ripe.run_tests(True)
+rift.init("fact.so")
+rift.run_tests(True)

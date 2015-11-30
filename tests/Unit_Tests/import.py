@@ -1,1 +1,1 @@
-import ripe
+import rift

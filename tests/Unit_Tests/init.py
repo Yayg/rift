@@ -1,3 +1,3 @@
-import ripe
+import rift
 
-ripe.init("init.so")
+rift.init("init.so")

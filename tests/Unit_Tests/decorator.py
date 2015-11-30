@@ -1,7 +1,7 @@
-import ripe
+import rift
 
-@ripe.Test
+@rift.Test
 def test_decorator():
     print("Passed")
 
-ripe.run_tests()
+rift.run_tests()

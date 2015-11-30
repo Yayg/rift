@@ -1,2 +1,2 @@
 from ctypes import cdll
-from ripe import *
+from rift import *

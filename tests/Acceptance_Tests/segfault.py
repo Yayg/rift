@@ -1,10 +1,10 @@
 #! /usr/bin/env python3
-from ripe import *
+from rift import *
 
 @Test
 def test():
-    ret, stdout, stderr = ripe.call(lib.segv, ripe.c_int, 0)
+    ret, stdout, stderr = rift.call(lib.segv, rift.c_int, 0)
     return True
 
-ripe.init("segfault.so")
-ripe.run_tests(True)
+rift.init("segfault.so")
+rift.run_tests(True)
